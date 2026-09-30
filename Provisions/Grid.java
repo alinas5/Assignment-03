@@ -331,6 +331,13 @@ public class Grid implements GridInterface, Cloneable {
 	 * @return whether the indicated square is occupied
 	 */
 	public boolean squareOccupied(Location l) throws IllegalGridException {
+		Square s; // Square at the given location
+		boolean result; // Whether or not the square is currently occupied by the knight
+
+		s = getSquare(l);
+		result = !s.isEmpty();
+		return result;
+	}
 
 	/*
 	 * COM
@@ -354,9 +361,9 @@ public class Grid implements GridInterface, Cloneable {
 	 * @return Symbol the symbol
 	 */
 	public Symbol getSymbol(Location l) throws IllegalGridException {
-		/* COMPLETE ME */
-
-		return null; // REPLACE ME WITH YOUR IMPLEMENTATION
+		Symbol result; // Symbol found at the given location
+		result = getSquare(l).getSymbol();
+		return result;
 	}
 
 	/**
