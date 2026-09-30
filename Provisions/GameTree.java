@@ -55,8 +55,10 @@ public class GameTree implements GameTreeInterface {
 	 *
 	 * @param o the board (Object) to place in the TNode's data field
 	 */
-	public GameTree(Object o) {
-		/* COMPLETE ME */
+	public GameTree(Object o) 
+	{
+		// Initialise the instance variable
+		root = new TNode(o);
 	}
 
 	/**
@@ -76,8 +78,10 @@ public class GameTree implements GameTreeInterface {
 	 * @0aram l the level number of this node in the GameTree
 	 * @param p the GameTree which is to be the parent of this one
 	 */
-	public GameTree(Object o, int l, GameTree p) {
-		/* COMPLETE ME */
+	public GameTree(Object o, int l, GameTree p) 
+	{
+		// Initialise the instance variable
+		root = new TNode(o, l, p.root);
 	}
 
 	/**
@@ -128,10 +132,13 @@ public class GameTree implements GameTreeInterface {
 	 *
 	 * @return int the root TNode's level field
 	 */
-	public int getLevel() throws EmptyGameTreeException {
-		/* COMPLETE ME */
-
-		return -1; // REPLACE ME WITH YOUR IMPLEMENTATION
+	public int getLevel() throws EmptyGameTreeException 
+	{
+		if (isEmpty())
+		{
+			throw new EmptyGameTreeException();
+		}
+		return root.getLevel();
 	}
 
 	/**
@@ -174,10 +181,16 @@ public class GameTree implements GameTreeInterface {
 	 *
 	 * @return GameTree the root TNode's child field
 	 */
-	public GameTree getChild() throws EmptyGameTreeException {
-		/* COMPLETE ME */
+	public GameTree getChild() throws EmptyGameTreeException 
+	{
+		GameTree tree = new GameTree(); // create new gametree
 
-		return null; // REPLACE ME WITH YOUR IMPLEMENTATION
+		if (isEmpty())
+		{
+			throw new EmptyGameTreeException();
+		}
+		tree.root = root.getChild(); // set this game tree to the child of this root
+		return tree;
 	}
 
 	/**
@@ -190,10 +203,16 @@ public class GameTree implements GameTreeInterface {
 	 *
 	 * @return GameTree the root TNode's sibling field
 	 */
-	public GameTree getSibling() throws EmptyGameTreeException {
-		/* COMPLETE ME */
+	public GameTree getSibling() throws EmptyGameTreeException
+	{
+		GameTree tree = new GameTree(); // create new game tree
+		if (isEmpty())
+		{
+			throw new EmptyGameTreeException();
+		}
 
-		return null; // REPLACE ME WITH YOUR IMPLEMENTATION
+		tree.root = root.getSibling(); // set the root of new tree to the sibling tree
+		return tree;
 	}
 
 	/**
@@ -233,8 +252,13 @@ public class GameTree implements GameTreeInterface {
 	 * @param int the value to be placed within the TNode's
 	 *            level field
 	 */
-	public void setLevel(int l) throws EmptyGameTreeException {
-		/* COMPLETE ME */
+	public void setLevel(int l) throws EmptyGameTreeException 
+	{
+		if (isEmpty())
+		{
+			throw new EmptyGameTreeException();
+		}
+		root.setLevel(l);
 	}
 
 	/**
@@ -274,8 +298,14 @@ public class GameTree implements GameTreeInterface {
 	 * @param GameTree the value to be placed within the TNode's
 	 *                 child field
 	 */
-	public void setChild(GameTree c) throws EmptyGameTreeException {
-		/* COMPLETE ME */
+	public void setChild(GameTree c) throws EmptyGameTreeException 
+	{
+		if (isEmpty())
+		{
+			throw new EmptyGameTreeException();
+		}
+
+		root.setChild(c.root);
 	}
 
 	/**
@@ -290,8 +320,13 @@ public class GameTree implements GameTreeInterface {
 	 * @param GameTree the value to be placed within the TNode's
 	 *                 sibling field
 	 */
-	public void setSibling(GameTree s) throws EmptyGameTreeException {
-		/* COMPLETE ME */
+	public void setSibling(GameTree s) throws EmptyGameTreeException 
+	{
+		if (isEmpty())
+		{
+			throw new EmptyGameTreeException();
+		}
+		root.setSibling(s.root);
 	}
 
 	/**
