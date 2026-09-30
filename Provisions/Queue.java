@@ -15,7 +15,7 @@
 
 public class Queue implements QueueInterface {
 	// finals
-	protected final boolean TRACING = false; // do we want to see trace output?
+	protected final boolean TRACING = true; // do we want to see trace output?
 
 	// non-finals
 	protected Node first; // the node at the front of the queue

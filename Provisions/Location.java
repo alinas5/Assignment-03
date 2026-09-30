@@ -14,7 +14,7 @@
 
 public class Location implements LocationInterface, Cloneable {
 	// finals
-	protected final boolean TRACING = false; // do we want to see trace output?
+	protected final boolean TRACING = true; // do we want to see trace output?
 
 	// non-finals
 	protected int row; // the vertical component of the position
