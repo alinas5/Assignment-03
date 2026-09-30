@@ -194,7 +194,14 @@ public class Grid implements GridInterface, Cloneable {
 	 * @param s the Square to insert into the Grid
 	 */
 	public void setSquare(Square s) throws IllegalGridException {
-		/* COMPLETE ME */
+		Location l;
+
+		l = s.getLocation();
+		if (!validMove(l)) {
+			throw new IllegalGridException();
+		} else {
+			board[l.getRow() - 1][l.getColumn() - 1] = s;
+		}
 	}
 
 	/**
@@ -214,8 +221,14 @@ public class Grid implements GridInterface, Cloneable {
 	 * @return Square the Square examined/extracted from the board
 	 */
 	public Square getSquare(Location l) throws IllegalGridException {
-		// Real numbers start at 1, array indexes start at 0
-		return board[l.getRow() - 1][l.getColumn() - 1];
+		Square result; // The square can be found now
+
+		if (!validMove(l)) {
+			throw new IllegalGridException();
+		} else {
+			result = board[l.getRow() - 1][l.getColumn() - 1];
+			return result;
+		}
 	}
 
 	/**
