@@ -38,7 +38,9 @@ public class Location implements LocationInterface, Cloneable
 	*/
 	public Location(int r, int c)
 	{
-		/* COMPLETE ME */
+		// initialise the instance variables
+		row = r;
+		column = c;
 	}
 	
 	
@@ -55,7 +57,7 @@ public class Location implements LocationInterface, Cloneable
 	*/
 	public void setRow(int r)
 	{
-		/* COMPLETE ME */
+		row = r;
 	}
 	
 	
@@ -72,7 +74,7 @@ public class Location implements LocationInterface, Cloneable
 	*/
 	public void setColumn(int c)
 	{
-		/* COMPLETE ME */
+		column = c;
 	}
 	
 	
@@ -89,9 +91,7 @@ public class Location implements LocationInterface, Cloneable
 	*/
 	public int getRow()
 	{
-		/* COMPLETE ME */
-		
-		return -1; // REPLACE ME WITH YOUR IMPLEMENTATION	
+		return row;	
 	}
 	
 	
@@ -108,9 +108,7 @@ public class Location implements LocationInterface, Cloneable
 	*/
 	public int getColumn()
 	{
-		/* COMPLETE ME */
-		
-		return -1; // REPLACE ME WITH YOUR IMPLEMENTATION	
+		return column;	
 	}
 	
 	
@@ -126,9 +124,10 @@ public class Location implements LocationInterface, Cloneable
 	*/
 	public Object clone()
 	{
-		/* COMPLETE ME */
+		// Create a new location with the same row and column values
+		Location l = new Location(row, column);
 		
-		return null; // REPLACE ME WITH YOUR IMPLEMENTATION	
+		return l;	
 	}
 	
 	
