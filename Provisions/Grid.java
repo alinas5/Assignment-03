@@ -214,9 +214,8 @@ public class Grid implements GridInterface, Cloneable {
 	 * @return Square the Square examined/extracted from the board
 	 */
 	public Square getSquare(Location l) throws IllegalGridException {
-		/* COMPLETE ME */
-
-		return null; // REPLACE ME WITH YOUR IMPLEMENTATION
+		// Real numbers start at 1, array indexes start at 0
+		return board[l.getRow() - 1][l.getColumn() - 1];
 	}
 
 	/**
@@ -245,9 +244,7 @@ public class Grid implements GridInterface, Cloneable {
 	 * @return Dimension the side-length of the board
 	 */
 	public Dimension getDimension() {
-		/* COMPLETE ME */
-
-		return null; // REPLACE ME WITH YOUR IMPLEMENTATION
+		return dimension;
 	}
 
 	/*
@@ -262,7 +259,7 @@ public class Grid implements GridInterface, Cloneable {
 	 * @param l the desired location to set
 	 */
 	public void setLocation(Location l) throws IllegalGridException {
-		/* COMPLETE ME */
+		loc = l;
 	}
 
 	/**
@@ -275,9 +272,7 @@ public class Grid implements GridInterface, Cloneable {
 	 * @return Location the location of the knight in the Grid
 	 */
 	public Location getLocation() {
-		/* COMPLETE ME */
-
-		return null; // REPLACE ME WITH YOUR IMPLEMENTATION
+		return loc; // REPLACE ME WITH YOUR IMPLEMENTATION
 	}
 
 	/**
@@ -295,7 +290,9 @@ public class Grid implements GridInterface, Cloneable {
 	 * @param s the symbol to put at the square
 	 */
 	public void occupySquare(Location l, Symbol s) throws IllegalGridException {
-		/* COMPLETE ME */
+		getSquare(l).setSymbol(s);
+		s.setLocation(l); // This is so that the cloned "empty" symbols can be drawn safely
+		loc = l; // Knight can now be found here
 	}
 
 	/**
@@ -317,12 +314,14 @@ public class Grid implements GridInterface, Cloneable {
 	 * @return whether the indicated square is occupied
 	 */
 	public boolean squareOccupied(Location l) throws IllegalGridException {
-		/* COMPLETE ME */
 
-		return false; // REPLACE ME WITH YOUR IMPLEMENTATION
-	}
-
-	/**
+	/*
+	 * COM
+	 * 
+	 * return false; // REPLACE ME WITH YOUR IMPLEMENTATION
+	 * }
+	 * 
+	 * /**
 	 * getSymbol()
 	 * Pre-condition: the given Location value is defined
 	 * Post-condition: return the symbol of the square of
@@ -358,9 +357,11 @@ public class Grid implements GridInterface, Cloneable {
 	 * @return boolean whether the location is on the board
 	 */
 	public boolean validMove(Location l) {
-		/* COMPLETE ME */
+		boolean result; // Where location is on the board
 
-		return false; // REPLACE ME WITH YOUR IMPLEMENTATION
+		result = (l.getRow() >= 1) && (l.getRow() <= getDimension().getVert())
+				&& (l.getColumn() >= 1) && (l.getColumn() <= getDimension().getHoriz());
+		return result;
 	}
 
 	/**
