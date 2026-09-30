@@ -14,7 +14,7 @@
 
 public class Location implements LocationInterface, Cloneable {
 	// finals
-	protected final boolean TRACING = true; // do we want to see trace output?
+	protected final boolean TRACING = false; // do we want to see trace output?
 
 	// non-finals
 	protected int row; // the vertical component of the position
@@ -30,11 +30,10 @@ public class Location implements LocationInterface, Cloneable {
 	 * created Location object to hold the vertical and
 	 * horizontal component values
 	 *
-	 *	@param r the row number
-	 *	@param c the column number
-	*/
-	public Location(int r, int c)
-	{
+	 * @param r the row number
+	 * @param c the column number
+	 */
+	public Location(int r, int c) {
 		// initialise the instance variables
 		row = r;
 		column = c;
@@ -49,10 +48,9 @@ public class Location implements LocationInterface, Cloneable {
 	 * Informally: assign the value of the parameter to the Location
 	 * object's vertical component instance variable
 	 *
-	 *	@param r the row number
-	*/
-	public void setRow(int r)
-	{
+	 * @param r the row number
+	 */
+	public void setRow(int r) {
 		row = r;
 	}
 
@@ -65,10 +63,9 @@ public class Location implements LocationInterface, Cloneable {
 	 * Informally: assign the value of the parameter to the Location
 	 * object's horizontal component instance variable
 	 *
-	 *	@param c the column number
-	*/
-	public void setColumn(int c)
-	{
+	 * @param c the column number
+	 */
+	public void setColumn(int c) {
 		column = c;
 	}
 
@@ -81,11 +78,10 @@ public class Location implements LocationInterface, Cloneable {
 	 * Informally: examine the Location object's vertical component
 	 * instance variable returning its value
 	 *
-	 *	@return int the row number
-	*/
-	public int getRow()
-	{
-		return row;	
+	 * @return int the row number
+	 */
+	public int getRow() {
+		return row;
 	}
 
 	/**
@@ -97,11 +93,10 @@ public class Location implements LocationInterface, Cloneable {
 	 * Informally: examine the Location object's horizontal component
 	 * instance variable returning its value
 	 *
-	 *	@return int the column number
-	*/
-	public int getColumn()
-	{
-		return column;	
+	 * @return int the column number
+	 */
+	public int getColumn() {
+		return column;
 	}
 
 	/**
@@ -112,14 +107,13 @@ public class Location implements LocationInterface, Cloneable {
 	 * current object is returned
 	 * Informally: create a copy of the current object
 	 *
-	 *	@return Object the copied Location
-	*/
-	public Object clone()
-	{
+	 * @return Object the copied Location
+	 */
+	public Object clone() {
 		// Create a new location with the same row and column values
 		Location l = new Location(row, column);
-		
-		return l;	
+
+		return l;
 	}
 
 	/**

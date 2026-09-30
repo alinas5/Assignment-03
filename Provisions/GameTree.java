@@ -17,7 +17,7 @@
 
 public class GameTree implements GameTreeInterface {
 	// finals
-	protected final boolean TRACING = true; // do we want to see output for tracing (debugging) purposes?
+	protected final boolean TRACING = false; // do we want to see output for tracing (debugging) purposes?
 	protected final int HORIZONTAL[] = { 2, 1, -1, -2, -2, -1, 1, 2 }; // 8 possible column movements
 	protected final int VERTICAL[] = { -1, -2, -2, -1, 1, 2, 2, 1 }; // the corresponding row movements
 

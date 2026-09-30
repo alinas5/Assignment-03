@@ -19,7 +19,7 @@ import java.awt.*;
 
 public class Grid implements GridInterface, Cloneable {
 	// non-static finals
-	protected final boolean TRACING = true; // do we want to see output for tracing (debugging) purposes?
+	protected final boolean TRACING = false; // do we want to see output for tracing (debugging) purposes?
 	protected final int SIZE = 8; // default side length of board
 
 	// static finals
