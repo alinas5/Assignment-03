@@ -36,7 +36,8 @@ public class Dimension implements DimensionInterface {
 	 * @param h the horizontal dimension
 	 */
 	public Dimension(int v, int h) {
-		/* COMPLETE ME */
+		vert = v;
+		horiz = h;
 	}
 
 	/**
@@ -51,7 +52,7 @@ public class Dimension implements DimensionInterface {
 	 * @param v the vertical dimension
 	 */
 	public void setVert(int v) {
-		/* COMPLETE ME */
+		vert = v;
 	}
 
 	/**
@@ -66,7 +67,7 @@ public class Dimension implements DimensionInterface {
 	 * @param h the horizontal dimension
 	 */
 	public void setHoriz(int h) {
-		/* COMPLETE ME */
+		horiz = h;
 	}
 
 	/**
@@ -81,9 +82,7 @@ public class Dimension implements DimensionInterface {
 	 * @return int the vertical dimension
 	 */
 	public int getVert() {
-		/* COMPLETE ME */
-
-		return -1; // REPLACE ME WITH YOUR IMPLEMENTATION
+		return vert; // Replaced return -1 over here. : )
 	}
 
 	/**
@@ -97,9 +96,7 @@ public class Dimension implements DimensionInterface {
 	 * @return int the horizontal dimension
 	 */
 	public int getHoriz() {
-		/* COMPLETE ME */
-
-		return -1; // REPLACE ME WITH YOUR IMPLEMENTATION
+		return horiz; // Replaced return -1 over here. : )
 	}
 
 	/**
