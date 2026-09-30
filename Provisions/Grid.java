@@ -244,7 +244,7 @@ public class Grid implements GridInterface, Cloneable {
 	 * @param d the intended dimension for the Grid
 	 */
 	public void setDimension(Dimension d) throws IllegalGridException {
-		/* COMPLETE ME */
+		dimension = d;
 	}
 
 	/**
@@ -272,7 +272,11 @@ public class Grid implements GridInterface, Cloneable {
 	 * @param l the desired location to set
 	 */
 	public void setLocation(Location l) throws IllegalGridException {
-		loc = l;
+		if (!validMove(l)) {
+			throw new IllegalGridException();
+		} else {
+			loc = l;
+		}
 	}
 
 	/**
