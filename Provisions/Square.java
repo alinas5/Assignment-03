@@ -71,7 +71,10 @@ public class Square implements SquareInterface, Cloneable
 	 */
 	public Square(Location l, Symbol s, Image b)
 	{
-		/* COMPLETE ME */
+		// Initialise the instance variables
+		loc = l;
+		symbol = s;
+		background = b;
 	}
 	
 	
@@ -85,9 +88,10 @@ public class Square implements SquareInterface, Cloneable
 	 */
 	public Object clone()
 	{
-		/* COMPLETE ME */
+		// Create new square with the same values
+		Square s = new Square(loc, symbol, background);
 		
-		return null; // REPLACE ME WITH YOUR IMPLEMENTATION	
+		return s; 	
 	}
 	
 	
@@ -216,9 +220,7 @@ public class Square implements SquareInterface, Cloneable
 	 */
 	public boolean isEmpty()
 	{
-		/* COMPLETE ME */
-		
-		return false; // REPLACE ME WITH YOUR IMPLEMENTATION	
+		return symbol==null;
 	}
 	
 	
