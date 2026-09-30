@@ -2,8 +2,8 @@
 /**
  *	Square ADT
  *
- *	@author <<Student IDs and Names HERE>>
- *	@version <<Date HERE>>
+ * @author <<Alina Samoylenko 771455 Addison Allen 762593>>
+ * @version <<30/09/2026>>
  *
  *	This file holds the Square ADT which represents
  *	a physical space within a grid.  A Square in a
