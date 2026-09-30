@@ -60,7 +60,8 @@ public class Grid implements GridInterface, Cloneable {
 	 * @param: d the desired Dimension for the Grid
 	 */
 	public Grid(Dimension d) {
-		/* COMPLETE ME */
+		dimension = d;
+		initialiseGrid();
 	}
 
 	/**
