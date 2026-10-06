@@ -377,15 +377,13 @@ public class GameTree implements GameTreeInterface {
 	 * @param tl int which specifies desired length of the Knight's
 	 *           Tour
 	 */
-	public void generateLevelDF(Stack s, int tl)
-	{
+	public void generateLevelDF(Stack s, int tl) {
 		GameTree b; // the tree that iterates
 		b = getChild();
-		// From the left-most child to the right most child of the root, if the childs not empty, push it on the stack
-		while (b != null)
-		{
-			if (!b.isEmpty())
-			{
+		// From the left-most child to the right most child of the root, if the childs
+		// not empty, push it on the stack
+		while (b != null) {
+			if (!b.isEmpty()) {
 				// push the child onto the stack
 				s.push(b);
 			}
@@ -420,38 +418,31 @@ public class GameTree implements GameTreeInterface {
 	 * @return GameTree the solution (or an empty tree if there is
 	 *         none)
 	 */
-	public GameTree buildGameDF(Grid b, Stack s, int tl)
-	{
+	public GameTree buildGameDF(Grid b, Stack s, int tl) {
 		GameTree topTree;
-		if (isEmpty())
-		{
-			//Replace this tree with a game tree containing the board b, then return buildGameDF();
+		if (isEmpty()) {
+			// Replace this tree with a game tree containing the board b, then return
+			// buildGameDF();
 			root = new TNode(b); // this migiht be wrong
 			return buildGameDF(b, s, tl);
-		}
-		else
-		{
-			if (getLevel() >= tl) // if the desired tour length has been reached (not sure getLevel() is the correct call)
+		} else {
+			if (getLevel() >= tl) // if the desired tour length has been reached (not sure getLevel() is the
+									// correct call)
 			{
 				// return current tree
 				return this;
-			}
-			else
-			{
+			} else {
 				// add a level to the GameTree
-				generateLevelDF(s, tl); 
-				
-				if (s.isEmpty())
-				{
+				generateLevelDF(s, tl);
+
+				if (s.isEmpty()) {
 					// if the stack is empty return an empty gametree
 					return new GameTree();
-				}
-				else
-				{
+				} else {
 					// return a recursive call on the top GameTree in the stack
-					topTree = (GameTree)s.top();
+					topTree = (GameTree) s.top();
 					s.pop(); // remove the top gametree
-					return topTree.buildGameDF(b,s,tl);
+					return topTree.buildGameDF(b, s, tl);
 				}
 			}
 		}
@@ -476,7 +467,19 @@ public class GameTree implements GameTreeInterface {
 	 *           Tour
 	 */
 	public void generateLevelBF(Queue q, int tl) {
-		/* COMPLETE ME */
+
+		GameTree c; // child nodes
+
+		if ((!isEmpty()) && (getLevel() < tl)) {
+			// add a level to the GameTree
+			c = getChild();
+			while (!c.isEmpty()) {
+				// add the child to the back of the queue!
+				q.add(c);
+				c = c.getSibling();
+			}
+		}
+
 	}
 
 	/**
