@@ -25,6 +25,7 @@ public class Grid implements GridInterface, Cloneable {
 	// static finals
 	protected final static Image WHITE = Toolkit.getDefaultToolkit().getImage("white.gif");
 	protected final static Image BLACK = Toolkit.getDefaultToolkit().getImage("black.gif");
+	protected final static Image KNIGHT = Toolkit.getDefaultToolkit().getImage("knight.gif");
 
 	// non-finals
 	protected Dimension dimension; // size of the grid
@@ -477,22 +478,27 @@ public class Grid implements GridInterface, Cloneable {
 	 * @param d the Display onto which the Grid is to be drawn
 	 */
 	public void showGrid(Display d) {
-		Location l; // location of the square being drawn
-		int width; // width passed to each square
-		Square q; // square being drawn
+		Location l; // location loop variable
+		Graphics g; // the graphics context to draw on
+		int width; // the width of output
+		Square q; // square loop variable
 
 		trace("showGrid(): starts\n" + toString());
 
-		width = (600 - 10 - ((getDimension().getHoriz() - 1) * 5))
-				/ getDimension().getHoriz();
+		// determine settings
+		g = d.getGraphics();
+		width = (600 - 10 - ((getDimension().getHoriz() - 1) * 5)) / getDimension().getHoriz();
 
+		// process every square
 		for (int r = 1; r <= getDimension().getVert(); r++) {
 			for (int c = 1; c <= getDimension().getHoriz(); c++) {
+				// show the current square
 				l = new Location(r, c);
 				q = getSquare(l);
 				q.showSquare(d, width);
 			}
 		}
+		g.setColor(Color.BLACK);
 
 		trace("showGrid(): ends");
 	}
