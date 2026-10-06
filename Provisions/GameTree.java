@@ -378,7 +378,36 @@ public class GameTree implements GameTreeInterface {
 	 *           Tour
 	 */
 	public void generateLevelDF(Stack s, int tl) {
-		GameTree b; // the tree that iterates
+		Grid g; // the grid of the game tree
+		Location loc; // The location to check whether it is possible or not
+		GameTree child; // the gametree to make a child of this one
+
+		loc = new Location(0,0);
+		
+
+		for (int i = 0; i < HORIZONTAL.length; i++) // Loop through all possible moves
+		{
+			g = (Grid)((Grid)root.getData()).clone();
+			// create a possible location
+			loc.setColumn(g.getLocation().getColumn()+VERTICAL[i]);
+			loc.setRow(g.getLocation().getRow()+VERTICAL[i]);
+			
+			if (g.validMove(loc))
+			{
+				//make this the grids new knight location
+				g.setLocation(loc);
+				//Make this a child of the gametree, then push it onto stack
+				child = new GameTree(g, getLevel()+1, this);
+				//push onto stack
+				s.push(child);
+			}
+		}
+
+		
+
+
+
+		/*GameTree b; // the tree that iterates
 		b = getChild();
 		// From the left-most child to the right most child of the root, if the childs
 		// not empty, push it on the stack
@@ -388,7 +417,7 @@ public class GameTree implements GameTreeInterface {
 				s.push(b);
 			}
 			b = b.getSibling();
-		}
+		}*/
 	}
 
 	/**
