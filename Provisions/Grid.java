@@ -19,7 +19,7 @@ import java.awt.*;
 
 public class Grid implements GridInterface, Cloneable {
 	// non-static finals
-	protected final boolean TRACING = false; // do we want to see output for tracing (debugging) purposes?
+	protected final boolean TRACING = true; // do we want to see output for tracing (debugging) purposes?
 	protected final int SIZE = 8; // default side length of board
 
 	// static finals
@@ -289,7 +289,7 @@ public class Grid implements GridInterface, Cloneable {
 	 * @return Location the location of the knight in the Grid
 	 */
 	public Location getLocation() {
-		return loc; // REPLACE ME WITH YOUR IMPLEMENTATION
+		return loc;
 	}
 
 	/**
@@ -477,27 +477,22 @@ public class Grid implements GridInterface, Cloneable {
 	 * @param d the Display onto which the Grid is to be drawn
 	 */
 	public void showGrid(Display d) {
-		Location l; // location loop variable
-		Graphics g; // the graphics context to draw on
-		int width; // the width of output
-		Square q; // square loop variable
+		Location l; // location of the square being drawn
+		int width; // width passed to each square
+		Square q; // square being drawn
 
 		trace("showGrid(): starts\n" + toString());
 
-		// determine settings
-		g = d.getGraphics();
-		width = (600 - 10 - ((getDimension().getHoriz() - 1) * 5)) / getDimension().getHoriz();
+		width = (600 - 10 - ((getDimension().getHoriz() - 1) * 5))
+				/ getDimension().getHoriz();
 
-		// process every square
 		for (int r = 1; r <= getDimension().getVert(); r++) {
 			for (int c = 1; c <= getDimension().getHoriz(); c++) {
-				// show the current square
 				l = new Location(r, c);
 				q = getSquare(l);
 				q.showSquare(d, width);
 			}
 		}
-		g.setColor(Color.BLACK);
 
 		trace("showGrid(): ends");
 	}
