@@ -15,7 +15,7 @@
 
 public class Stack implements StackInterface {
 	// finals
-	protected final boolean TRACING = false; // do we want to see trace output?
+	protected final boolean TRACING = true; // do we want to see trace output?
 
 	// non-finals
 	protected Node tos; // the node on the top of the stack
@@ -29,8 +29,7 @@ public class Stack implements StackInterface {
 	 * created Stack object by terminating the "tos"
 	 * field
 	 */
-	public Stack()
-	{
+	public Stack() {
 		tos = null;
 	}
 
@@ -47,8 +46,7 @@ public class Stack implements StackInterface {
 	 *
 	 * @param o the Object to store within the Stack
 	 */
-	public Stack(Object o)
-	{
+	public Stack(Object o) {
 		tos = new Node(o);
 	}
 
@@ -63,8 +61,7 @@ public class Stack implements StackInterface {
 	 *
 	 * @return boolean whether or not the Stack is empty
 	 */
-	public boolean isEmpty() 
-	{
+	public boolean isEmpty() {
 		return tos == null;
 	}
 
@@ -79,8 +76,7 @@ public class Stack implements StackInterface {
 	 *
 	 * @return Object the item at the top of the Stack
 	 */
-	public Object top() throws EmptyStackException 
-	{
+	public Object top() throws EmptyStackException {
 		if (isEmpty()) // might not need this check because of the pre-condition of this method
 		{
 			throw new EmptyStackException();
@@ -100,10 +96,8 @@ public class Stack implements StackInterface {
 	 * the second node on the Stack becomes the top. If
 	 * the Stack is empty, throw an exception
 	 */
-	public void pop() throws EmptyStackException 
-	{
-		if (isEmpty())
-		{
+	public void pop() throws EmptyStackException {
+		if (isEmpty()) {
 			throw new EmptyStackException();
 		}
 		tos = tos.getNext();
@@ -123,8 +117,7 @@ public class Stack implements StackInterface {
 	 *
 	 * @param o the Object to add to the top of the Stack
 	 */
-	public void push(Object o)
-	{
+	public void push(Object o) {
 		Node n;
 		n = new Node(o);
 
@@ -145,8 +138,7 @@ public class Stack implements StackInterface {
 	 * @return String the printable representation of the contents of
 	 *         the Stack
 	 */
-	public String toString() 
-	{
+	public String toString() {
 		Node c;
 		String s = "";
 
