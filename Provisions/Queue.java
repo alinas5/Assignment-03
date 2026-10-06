@@ -30,7 +30,7 @@ public class Queue implements QueueInterface {
 	 * "first" field
 	 */
 	public Queue() {
-		/* COMPLETE ME */
+		first = null;
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class Queue implements QueueInterface {
 	 * @param o the Object to store in the queue
 	 */
 	public Queue(Object o) {
-		/* COMPLETE ME */
+		first = new Node(o);
 	}
 
 	/**
@@ -62,9 +62,7 @@ public class Queue implements QueueInterface {
 	 * @return boolean whether or not the queue is empty
 	 */
 	public boolean isEmpty() {
-		/* COMPLETE ME */
-
-		return false; // REPLACE ME WITH YOUR IMPLEMENTATION
+		return (first == null);
 	}
 
 	/**
@@ -79,9 +77,11 @@ public class Queue implements QueueInterface {
 	 * @return Object the item at the head of the queue
 	 */
 	public Object front() throws EmptyQueueException {
-		/* COMPLETE ME */
-
-		return null; // REPLACE ME WITH YOUR IMPLEMENTATION
+		if (isEmpty()) {
+			throw new EmptyQueueException();
+		} else {
+			return first.getData();
+		}
 	}
 
 	/**
@@ -96,7 +96,11 @@ public class Queue implements QueueInterface {
 	 * If the Queue is empty, throw an exception
 	 */
 	public void remove() throws EmptyQueueException {
-		/* COMPLETE ME */
+		if (isEmpty()) {
+			throw new EmptyQueueException();
+		} else {
+			first = first.getNext();
+		}
 	}
 
 	/**
@@ -116,7 +120,16 @@ public class Queue implements QueueInterface {
 	 * @param Object the item to add to the queue
 	 */
 	public void add(Object o) {
-		/* COMPLETE ME */
+		Node newNode = new Node(o);
+		if (isEmpty()) {
+			first = newNode;
+		} else {
+			Node current = first;
+			while (current.getNext() != null) {
+				current = current.getNext();
+			}
+			current.setNext(newNode);
+		}
 	}
 
 	/**
