@@ -389,7 +389,7 @@ public class GameTree implements GameTreeInterface {
 			g = (Grid) ((Grid) root.getData()).clone();
 			// create a possible location
 			loc.setColumn(g.getLocation().getColumn() + VERTICAL[i]);
-			loc.setRow(g.getLocation().getRow() + HORIZONTAL[i]);
+			loc.setRow(g.getLocation().getRow() + VERTICAL[i]);
 
 			if (g.validMove(loc)) {
 				// make this the grids new knight location
