@@ -540,32 +540,31 @@ public class GameTree implements GameTreeInterface {
 	 *         none)
 	 */
 	public GameTree buildGameBF(Grid b, Queue q, int tl) {
-		GameTree topTree;
-		if (isEmpty()) {
-			// Replace this tree with a game tree containing the board b, then return
-			// buildGameBF();
-			root = new TNode(b); // this migiht be wrong
-			return buildGameBF(b, q, tl);
-		} else {
-			if (getLevel() >= tl) // if the desired tour length has been reached (not sure getLevel() is the
-									// correct call)
-			{
-				// return current tree
-				return this;
-			} else {
-				// add a level to the GameTree
-				generateLevelBF(q, tl);
+		{
+			GameTree frontTree; // the next tree taken from the queue
+			GameTree result; // the solution, or an empty tree
 
+			if (isEmpty()) {
+				// first call: start the tree with the given board
+				root = new TNode(b);
+				result = buildGameBF(b, q, tl);
+			} else if (getLevel() >= tl) {
+				// the tour is long enough
+				result = this;
+			} else {
+				// add a level, then carry on from the front of the queue
+				generateLevelBF(q, tl);
 				if (q.isEmpty()) {
-					// if the queue is empty return an empty gametree
-					return new GameTree();
+					// every path failed
+					result = new GameTree();
 				} else {
-					// return a recursive call on the top GameTree in the queue
-					topTree = (GameTree) q.front();
+					frontTree = (GameTree) q.front();
 					q.remove();
-					return topTree.buildGameBF(b, q, tl);
+					result = frontTree.buildGameBF(b, q, tl);
 				}
 			}
+
+			return result;
 		}
 	}
 
