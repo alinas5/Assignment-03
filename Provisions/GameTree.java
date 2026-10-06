@@ -382,42 +382,39 @@ public class GameTree implements GameTreeInterface {
 		Location loc; // The location to check whether it is possible or not
 		GameTree child; // the gametree to make a child of this one
 
-		loc = new Location(0,0);
-		
+		loc = new Location(0, 0);
 
 		for (int i = 0; i < HORIZONTAL.length; i++) // Loop through all possible moves
 		{
-			g = (Grid)((Grid)root.getData()).clone();
+			g = (Grid) ((Grid) root.getData()).clone();
 			// create a possible location
-			loc.setColumn(g.getLocation().getColumn()+VERTICAL[i]);
-			loc.setRow(g.getLocation().getRow()+VERTICAL[i]);
-			
-			if (g.validMove(loc))
-			{
-				//make this the grids new knight location
+			loc.setColumn(g.getLocation().getColumn() + VERTICAL[i]);
+			loc.setRow(g.getLocation().getRow() + HORIZONTAL[i]);
+
+			if (g.validMove(loc)) {
+				// make this the grids new knight location
 				g.setLocation(loc);
-				//Make this a child of the gametree, then push it onto stack
-				child = new GameTree(g, getLevel()+1, this);
-				//push onto stack
+				// Make this a child of the gametree, then push it onto stack
+				child = new GameTree(g, getLevel() + 1, this);
+				// push onto stack
 				s.push(child);
 			}
 		}
 
-		
-
-
-
-		/*GameTree b; // the tree that iterates
-		b = getChild();
-		// From the left-most child to the right most child of the root, if the childs
-		// not empty, push it on the stack
-		while (b != null) {
-			if (!b.isEmpty()) {
-				// push the child onto the stack
-				s.push(b);
-			}
-			b = b.getSibling();
-		}*/
+		/*
+		 * GameTree b; // the tree that iterates
+		 * b = getChild();
+		 * // From the left-most child to the right most child of the root, if the
+		 * childs
+		 * // not empty, push it on the stack
+		 * while (b != null) {
+		 * if (!b.isEmpty()) {
+		 * // push the child onto the stack
+		 * s.push(b);
+		 * }
+		 * b = b.getSibling();
+		 * }
+		 */
 	}
 
 	/**
@@ -496,19 +493,46 @@ public class GameTree implements GameTreeInterface {
 	 *           Tour
 	 */
 	public void generateLevelBF(Queue q, int tl) {
+		Grid g; // the grid of the game tree
+		Location loc; // the location to check whether it is possible or not
+		GameTree child; // the gametree to make a child of this one
+		GameTree last; // the previous child, so siblings can be chained
+		Symbol knight; // the knight being moved
 
-		GameTree c; // child nodes
+		last = null;
 
+		// only expand a non-empty node that is not already deep enough
 		if ((!isEmpty()) && (getLevel() < tl)) {
-			// add a level to the GameTree
-			c = getChild();
-			while (!c.isEmpty()) {
-				// add the child to the back of the queue!
-				q.add(c);
-				c = c.getSibling();
+			for (int i = 0; i < HORIZONTAL.length; i++) // loop through all possible moves
+			{
+				g = (Grid) ((Grid) root.getData()).clone();
+
+				loc = new Location(g.getLocation().getRow() + VERTICAL[i],
+						g.getLocation().getColumn() + HORIZONTAL[i]);
+
+				if (g.validMove(loc) && (!g.squareOccupied(loc))) {
+					// place the knight with the next number, then make that its location
+					knight = g.getSymbol(g.getLocation());
+					g.occupySquare(loc, new Symbol(knight.getIcon(),
+							knight.getNumber() + 1, loc));
+					g.setLocation(loc);
+
+					// make this a child of the game tree
+					child = new GameTree(g, getLevel() + 1, this);
+
+					// the first child hangs off the parent, the rest chain as siblings
+					if (last == null) {
+						setChild(child);
+					} else {
+						last.setSibling(child);
+					}
+					last = child;
+
+					// the new child joins the back of the queue
+					q.add(child);
+				}
 			}
 		}
-
 	}
 
 	/**
@@ -539,32 +563,29 @@ public class GameTree implements GameTreeInterface {
 	 *         none)
 	 */
 	public GameTree buildGameBF(Grid b, Queue q, int tl) {
-		{
-			GameTree frontTree; // the next tree taken from the queue
-			GameTree result; // the solution, or an empty tree
+		GameTree frontTree; // the next tree taken from the front of the queue
+		GameTree result; // the solution, or an empty tree
 
-			if (isEmpty()) {
-				// first call: start the tree with the given board
-				root = new TNode(b);
-				result = buildGameBF(b, q, tl);
-			} else if (getLevel() >= tl) {
-				// the tour is long enough
-				result = this;
+		if (isEmpty()) {
+			// replace this tree with one containing the board b, then recurse
+			root = new TNode(b);
+			result = buildGameBF(b, q, tl);
+		} else if (getLevel() >= tl) {
+			result = this;
+		} else {
+			generateLevelBF(q, tl);
+			if (q.isEmpty()) {
+				// nothing left to try, so there is no solution
+				result = new GameTree();
 			} else {
-				// add a level, then carry on from the front of the queue
-				generateLevelBF(q, tl);
-				if (q.isEmpty()) {
-					// every path failed
-					result = new GameTree();
-				} else {
-					frontTree = (GameTree) q.front();
-					q.remove();
-					result = frontTree.buildGameBF(b, q, tl);
-				}
+				// recurse on the front game tree of the queue (removed first)
+				frontTree = (GameTree) q.front();
+				q.remove();
+				result = frontTree.buildGameBF(b, q, tl);
 			}
-
-			return result;
 		}
+
+		return result;
 	}
 
 	/**
