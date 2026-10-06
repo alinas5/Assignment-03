@@ -25,6 +25,7 @@ public class Grid implements GridInterface, Cloneable {
 	// static finals
 	protected final static Image WHITE = Toolkit.getDefaultToolkit().getImage("white.gif");
 	protected final static Image BLACK = Toolkit.getDefaultToolkit().getImage("black.gif");
+	protected final static Image KNIGHT = Toolkit.getDefaultToolkit().getImage("knight.gif");
 
 	// non-finals
 	protected Dimension dimension; // size of the grid
