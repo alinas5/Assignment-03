@@ -390,14 +390,15 @@ public class GameTree implements GameTreeInterface {
 			g = (Grid)((Grid)root.getData()).clone();
 			// create a possible location
 			loc.setColumn(g.getLocation().getColumn()+VERTICAL[i]);
-			loc.setRow(g.getLocation().getRow()+VERTICAL[i]);
+			loc.setRow(g.getLocation().getRow()+HORIZONTAL[i]);
 			
-			if (g.validMove(loc))
+			if (g.validMove(loc)&&!g.squareOccupied(loc)&&getLevel() < tl)
 			{
 				//make this the grids new knight location
-				g.setLocation(loc);
+				g.occupySquare(loc, g.getSymbol(g.getLocation()));
 				//Make this a child of the gametree, then push it onto stack
 				child = new GameTree(g, getLevel()+1, this);
+				// does it need to add 1 to the gametrees level?
 				//push onto stack
 				s.push(child);
 			}
