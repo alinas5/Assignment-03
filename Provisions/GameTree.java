@@ -379,7 +379,18 @@ public class GameTree implements GameTreeInterface {
 	 */
 	public void generateLevelDF(Stack s, int tl)
 	{
-		
+		GameTree b; // the tree that iterates
+		b = getChild();
+		// From the left-most child to the right most child of the root, if the childs not empty, push it on the stack
+		while (b != null)
+		{
+			if (!b.isEmpty())
+			{
+				// push the child onto the stack
+				s.push(b);
+			}
+			b = b.getSibling();
+		}
 	}
 
 	/**
@@ -428,7 +439,7 @@ public class GameTree implements GameTreeInterface {
 			else
 			{
 				// add a level to the GameTree
-				generateLevelDF(s, tl+1);
+				generateLevelDF(s, tl); 
 				
 				if (s.isEmpty())
 				{
