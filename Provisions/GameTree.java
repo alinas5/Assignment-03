@@ -377,8 +377,9 @@ public class GameTree implements GameTreeInterface {
 	 * @param tl int which specifies desired length of the Knight's
 	 *           Tour
 	 */
-	public void generateLevelDF(Stack s, int tl) {
-		/* COMPLETE ME */
+	public void generateLevelDF(Stack s, int tl)
+	{
+		
 	}
 
 	/**
@@ -408,10 +409,41 @@ public class GameTree implements GameTreeInterface {
 	 * @return GameTree the solution (or an empty tree if there is
 	 *         none)
 	 */
-	public GameTree buildGameDF(Grid b, Stack s, int tl) {
-		/* COMPLETE ME */
-
-		return null; // REPLACE ME WITH YOUR IMPLEMENTATION
+	public GameTree buildGameDF(Grid b, Stack s, int tl)
+	{
+		GameTree topTree;
+		if (isEmpty())
+		{
+			//Replace this tree with a game tree containing the board b, then return buildGameDF();
+			root = new TNode(b); // this migiht be wrong
+			return buildGameDF(b, s, tl);
+		}
+		else
+		{
+			if (getLevel() >= tl) // if the desired tour length has been reached (not sure getLevel() is the correct call)
+			{
+				// return current tree
+				return this;
+			}
+			else
+			{
+				// add a level to the GameTree
+				generateLevelDF(s, tl+1);
+				
+				if (s.isEmpty())
+				{
+					// if the stack is empty return an empty gametree
+					return new GameTree();
+				}
+				else
+				{
+					// return a recursive call on the top GameTree in the stack
+					topTree = (GameTree)s.top();
+					s.pop(); // remove the top gametree
+					return topTree.buildGameDF(b,s,tl);
+				}
+			}
+		}
 	}
 
 	/**
