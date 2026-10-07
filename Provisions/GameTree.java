@@ -381,11 +381,12 @@ public class GameTree implements GameTreeInterface {
 		Grid g; // the grid of the game tree
 		Location loc; // The location to check whether it is possible or not
 		GameTree child; // the gametree to make a child of this one
+        Symbol sym;
 
-		loc = new Location(0, 0);
-
+		
 		for (int i = 0; i < HORIZONTAL.length; i++) // Loop through all possible moves
 		{
+            loc = new Location(0, 0);
 			g = (Grid) ((Grid) root.getData()).clone();
 			// create a possible location
 			loc.setColumn(g.getLocation().getColumn() + VERTICAL[i]);
@@ -393,9 +394,15 @@ public class GameTree implements GameTreeInterface {
 
 			if (g.validMove(loc)&&!g.squareOccupied(loc)&&getLevel()<tl) {
 				// make this the grids new knight location
-				g.occupySquare(loc, g.getSymbol(g.getLocation()));
+                sym = (Symbol)(g.getSymbol(g.getLocation()).clone());
+                sym.setNumber(sym.getNumber()+1);
+                System.out.println("updated: " + g.getSymbol(loc).getNumber()+1);
+				g.occupySquare(loc, sym);
 				// Make this a child of the gametree, then push it onto stack
-				child = new GameTree(g, getLevel() + 1, this);
+                child = new GameTree(g, getLevel() + 1, this);
+                child.setSibling(getChild());
+                setChild(child);
+
 				// push onto stack
 				s.push(child);
 			}
@@ -449,7 +456,8 @@ public class GameTree implements GameTreeInterface {
 		if (isEmpty()) {
 			// Replace this tree with a game tree containing the board b, then return
 			// buildGameDF();
-			root = new TNode(b); // this migiht be wrong
+			root = new TNode((Grid)(b.clone())); // this migiht be wrong
+            s.push(this);
 			return buildGameDF(b, s, tl);
 		} else {
 			if (getLevel() >= tl) // if the desired tour length has been reached (not sure getLevel() is the
@@ -468,6 +476,7 @@ public class GameTree implements GameTreeInterface {
 					// return a recursive call on the top GameTree in the stack
 					topTree = (GameTree) s.top();
 					s.pop(); // remove the top gametree
+                    incCount();
 					return topTree.buildGameDF(b, s, tl);
 				}
 			}

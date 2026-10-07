@@ -21,7 +21,7 @@ import java.awt.*;
 public class Square implements SquareInterface, Cloneable
 {
 	// finals
-	protected final boolean TRACING=true; // do we want to see trace output?
+	protected final boolean TRACING=false; // do we want to see trace output?
 
 	// non-finals
 	protected Symbol symbol;	// the symbol of the current square
@@ -72,9 +72,9 @@ public class Square implements SquareInterface, Cloneable
 	public Square(Location l, Symbol s, Image b)
 	{
 		// Initialise the instance variables
-		loc = l;
-		symbol = s;
-		background = b;
+		setLocation(l);
+		setSymbol(s);
+		setBackground(b);
 	}
 	
 	
@@ -89,7 +89,7 @@ public class Square implements SquareInterface, Cloneable
 	public Object clone()
 	{
 		// Create new square with the same values
-		Square s = new Square(loc, symbol, background);
+		Square s = new Square((Location)loc.clone(), symbol, background);
 		
 		return s; 	
 	}
@@ -220,7 +220,7 @@ public class Square implements SquareInterface, Cloneable
 	 */
 	public boolean isEmpty()
 	{
-		return symbol==null;
+		return symbol.isEmpty();
 	}
 	
 	
