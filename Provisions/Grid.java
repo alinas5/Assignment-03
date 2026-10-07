@@ -275,7 +275,7 @@ public class Grid implements GridInterface, Cloneable {
 		if (!validMove(l)) {
 			throw new IllegalGridException();
 		} else {
-			loc = l;
+			loc = (Location)l.clone();
 		}
 	}
 

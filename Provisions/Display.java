@@ -19,7 +19,7 @@ import java.awt.*;
 public class Display implements DisplayInterface
 {
 	// finals
-	protected final boolean TRACING=true;				// do we want to see trace output?
+	protected final boolean TRACING=false;				// do we want to see trace output?
 
 	// properties
 	protected Graphics graphics;						// the window on which to draw etc.

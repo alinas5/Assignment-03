@@ -20,7 +20,7 @@ import java.awt.*;
 public class Symbol implements SymbolInterface, Cloneable
 {
 	// finals
-	protected final boolean TRACING=true; // do we want to see output for tracing (debugging) purposes?
+	protected final boolean TRACING=false; // do we want to see output for tracing (debugging) purposes?
 	
 	// non-finals
 	protected Image icon;	// the picture of the knight
