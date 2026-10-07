@@ -275,7 +275,7 @@ public class Grid implements GridInterface, Cloneable {
 		if (!validMove(l)) {
 			throw new IllegalGridException();
 		} else {
-			loc = (Location)l.clone();
+			loc = (Location) l.clone();
 		}
 	}
 
@@ -384,7 +384,9 @@ public class Grid implements GridInterface, Cloneable {
 		boolean result; // Where location is on the board
 
 		result = (l.getRow() >= 1) && (l.getRow() <= getDimension().getVert())
-				&& (l.getColumn() >= 1) && (l.getColumn() <= getDimension().getHoriz());
+				&& (l.getColumn() >= 1) && (l.getColumn() <= getDimension().getHoriz()); // check if the location is
+																							// within the bounds of the
+																							// grid
 		return result;
 	}
 

@@ -119,12 +119,12 @@ public class Queue implements QueueInterface {
 	 *
 	 * @param Object the item to add to the queue
 	 */
-	public void add(Object o) {
+	public void add(Object o) { // add a new node to the end of the queue
 		Node newNode = new Node(o);
 		if (isEmpty()) {
 			first = newNode;
 		} else {
-			Node current = first;
+			Node current = first; // start at the front of the queue
 			while (current.getNext() != null) {
 				current = current.getNext();
 			}
@@ -144,13 +144,13 @@ public class Queue implements QueueInterface {
 	 *
 	 * @return String the printable contents of the queue
 	 */
-	public String toString() {
+	public String toString() { // convert the queue to a printable String representation
 		Node c;
 		String s = "";
 
 		trace("toString: toString ends");
 
-		if (isEmpty()) {
+		if (isEmpty()) { // if the queue is empty, return "<>"
 			trace("toString: toString ends empty");
 			s = "<>";
 		} else {

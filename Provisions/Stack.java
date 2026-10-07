@@ -117,7 +117,7 @@ public class Stack implements StackInterface {
 	 *
 	 * @param o the Object to add to the top of the Stack
 	 */
-	public void push(Object o) {
+	public void push(Object o) { // add a new node to the top of the stack
 		Node n;
 		n = new Node(o);
 
@@ -138,14 +138,14 @@ public class Stack implements StackInterface {
 	 * @return String the printable representation of the contents of
 	 *         the Stack
 	 */
-	public String toString() {
+	public String toString() { // convert the stack to a printable String representation
 		Node c;
 		String s = "";
 
 		trace("toString: toString starts");
 
 		if (isEmpty()) {
-			trace("toString: toString ends empty");
+			trace("toString: toString ends empty"); // if the stack is empty, return "<>"
 			s = "<>";
 		} else {
 			c = tos;

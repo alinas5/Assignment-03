@@ -82,7 +82,7 @@ public class Dimension implements DimensionInterface {
 	 * @return int the vertical dimension
 	 */
 	public int getVert() {
-		return vert; // Replaced return -1 over here. : )
+		return vert;
 	}
 
 	/**
@@ -96,7 +96,7 @@ public class Dimension implements DimensionInterface {
 	 * @return int the horizontal dimension
 	 */
 	public int getHoriz() {
-		return horiz; // Replaced return -1 over here. : )
+		return horiz;
 	}
 
 	/**
