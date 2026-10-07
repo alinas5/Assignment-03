@@ -20,7 +20,7 @@ import java.awt.event.*;
 public class KnightsTour extends Frame implements KnightsTourInterface, ActionListener
 {
 	// finals
-	protected final boolean TRACING=true;	// do we want to see output for tracing (debugging) purposes?
+	protected final boolean TRACING=false;	// do we want to see output for tracing (debugging) purposes?
 	protected final Image PICTURE=Toolkit.getDefaultToolkit().getImage("knight.gif");	// picture of knight
 
 	// non-finals

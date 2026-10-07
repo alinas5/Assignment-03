@@ -12,7 +12,7 @@
  */
 public class GameTree implements GameTreeInterface {
     // finals
-    protected final boolean TRACING = true; // do we want to see output for tracing (debugging) purposes?
+    protected final boolean TRACING = false; // do we want to see output for tracing (debugging) purposes?
     protected final int HORIZONTAL[] = {2, 1, -1, -2, -2, -1, 1, 2}; // 8 possible column movements
     protected final int VERTICAL[] = {-1, -2, -2, -1, 1, 2, 2, 1}; // the corresponding row movements
 
@@ -340,47 +340,36 @@ public class GameTree implements GameTreeInterface {
      * @param tl int which specifies desired length of the Knight's Tour
      */
     public void generateLevelDF(Stack s, int tl) {
-        Grid g; // the grid of the game tree
-        Location loc; // The location to check whether it is possible or not
+        Grid g;         // the grid of the game trees root
+        Location loc;   // The location to check whether it is possible or not
         GameTree child; // the gametree to make a child of this one
-        Symbol sym;
+        Symbol sym;     // the symbol of the new location
 
-        for (int i = 0; i < HORIZONTAL.length; i++) { // loop through all possible moves
+        // First, loop through all possible locations for the knight to move to.
+        for (int i = 0; i < HORIZONTAL.length; i++)
+        {
+            // Create a new location
             loc = new Location(0, 0);
+            // Get the grid from the root of the game tree
             g = (Grid) ((Grid) root.getData()).clone();
             // create a possible location
-            loc.setColumn(g.getLocation().getColumn() + VERTICAL[i]);
-            loc.setRow(g.getLocation().getRow() + HORIZONTAL[i]);
+            loc.setColumn(g.getLocation().getColumn() + HORIZONTAL[i]);
+            loc.setRow(g.getLocation().getRow() + VERTICAL[i]);
 
-            if (g.validMove(loc) && !g.squareOccupied(loc) && getLevel() < tl) {
-                // make this the grid's new knight location
-                sym = (Symbol) (g.getSymbol(g.getLocation()).clone());
-                sym.setNumber(sym.getNumber() + 1);
-                System.out.println("updated: " + g.getSymbol(loc).getNumber() + 1);
+            if (g.validMove(loc)&&!g.squareOccupied(loc)&&getLevel()<tl) {
+                // make this the grids new knight location
+                sym = (Symbol)(g.getSymbol(g.getLocation()).clone());
+                sym.setNumber(sym.getNumber()+1);
+                // Put the knight in its new place
                 g.occupySquare(loc, sym);
-
-                // Make this a child of the gametree, then push it onto stack
+                // Make tree a child of the gametree, then push it onto stack
                 child = new GameTree(g, getLevel() + 1, this);
                 child.setSibling(getChild());
                 setChild(child);
-
                 // push onto stack
                 s.push(child);
             }
         }
-
-        /*
-         * GameTree b; // the tree that iterates
-         * b = getChild();
-         * // From the left-most child to the right most child of the root, if the
-         * // child's not empty, push it on the stack.
-         * while (b != null) {
-         *    if (!b.isEmpty()) {
-         *        s.push(b);
-         *    }
-         *    b = b.getSibling();
-         * }
-         */
     }
 
     /**
@@ -403,29 +392,33 @@ public class GameTree implements GameTreeInterface {
      * @return GameTree the solution (or an empty tree if there is none)
      */
     public GameTree buildGameDF(Grid b, Stack s, int tl) {
-        GameTree topTree;
+		GameTree topTree;   // the top tree of the stack
 
-        if (isEmpty()) {
-            // Replace this tree with a game tree containing the board b, then return
-            // buildGameDF();
-            root = new TNode((Grid) (b.clone())); // this might be wrong
+        // If this tree is empty, Replace this tree with a game tree containing
+		// the board b, then return buildGameDF();
+		if (isEmpty()) {
+            // Make the root the grid that was passed in
+			root = new TNode((Grid)(b.clone()));
+            // Push this tree onto the stack and build the next part of the tree
             s.push(this);
-            return buildGameDF(b, s, tl);
-        } else {
-            if (getLevel() >= tl) { // if the desired tour length has been reached
-                // return current tree
-                return this;
-            } else {
-                // add a level to the GameTree
-                generateLevelDF(s, tl);
-
-                if (s.isEmpty()) {
-                    // if the stack is empty return an empty gametree
-                    return new GameTree();
-                } else {
-                    // return a recursive call on the top GameTree in the stack
-                    topTree = (GameTree) s.top();
-                    s.pop(); // remove the top gametree
+			return buildGameDF(b, s, tl);
+		} else {
+            // If we've reached the desired tour length, return this tree
+			if (getLevel() >= tl) 
+			{
+				return this;
+			} 
+            else 
+            {
+				// add a level to the GameTree
+				generateLevelDF(s, tl);
+                // if the stack is empty return an empty gametree
+				if (s.isEmpty()) {
+					return new GameTree();
+				} else {
+                    // otherwise, we pop the top tree on the stack and build the tree on that
+					topTree = (GameTree) s.top();
+					s.pop(); // remove the top gametree
                     incCount();
                     return topTree.buildGameDF(b, s, tl);
                 }
@@ -448,43 +441,34 @@ public class GameTree implements GameTreeInterface {
      * @param tl int which specifies desired length of the Knight's Tour
      */
     public void generateLevelBF(Queue q, int tl) {
-        Grid g; // the grid of the game tree
-        Location loc; // the location to check whether it is possible or not
+        Grid g;         // the grid of the game trees root
+        Location loc;   // The location to check whether it is possible or not
         GameTree child; // the gametree to make a child of this one
-        GameTree last; // the previous child, so siblings can be chained
-        Symbol knight; // the knight being moved
+        Symbol sym;     // the symbol of the new location
 
-        last = null;
+        // First, loop through all possible locations for the knight to move to.
+        for (int i = 0; i < HORIZONTAL.length; i++)
+        {
+            // Create a new location
+            loc = new Location(0, 0);
+            // Get the grid from the root of the game tree
+            g = (Grid) ((Grid) root.getData()).clone();
+            // create a possible location
+            loc.setColumn(g.getLocation().getColumn() + HORIZONTAL[i]);
+            loc.setRow(g.getLocation().getRow() + VERTICAL[i]);
 
-        // only expand a non-empty node that is not already deep enough
-        if ((!isEmpty()) && (getLevel() < tl)) {
-            for (int i = 0; i < HORIZONTAL.length; i++) { // loop through all possible moves
-                g = (Grid) ((Grid) root.getData()).clone();
-
-                loc = new Location(g.getLocation().getRow() + VERTICAL[i],
-                        g.getLocation().getColumn() + HORIZONTAL[i]);
-
-                if (g.validMove(loc) && (!g.squareOccupied(loc))) {
-                    // place the knight with the next number, then make that its location
-                    knight = g.getSymbol(g.getLocation());
-                    g.occupySquare(loc, new Symbol(knight.getIcon(),
-                            knight.getNumber() + 1, loc));
-                    g.setLocation(loc);
-
-                    // make this a child of the game tree
-                    child = new GameTree(g, getLevel() + 1, this);
-
-                    // the first child hangs off the parent, the rest chain as siblings
-                    if (last == null) {
-                        setChild(child);
-                    } else {
-                        last.setSibling(child);
-                    }
-                    last = child;
-
-                    // the new child joins the back of the queue
-                    q.add(child);
-                }
+            if (g.validMove(loc)&&!g.squareOccupied(loc)&&getLevel()<tl) {
+                // make this the grids new knight location
+                sym = (Symbol)(g.getSymbol(g.getLocation()).clone());
+                sym.setNumber(sym.getNumber()+1);
+                // Put the knight in its new place
+                g.occupySquare(loc, sym);
+                // Make tree a child of the gametree, then push it onto stack
+                child = new GameTree(g, getLevel() + 1, this);
+                child.setSibling(getChild());
+                setChild(child);
+                // push onto stack
+                q.add(child);
             }
         }
     }

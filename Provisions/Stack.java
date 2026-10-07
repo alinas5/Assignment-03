@@ -15,7 +15,7 @@
 
 public class Stack implements StackInterface {
 	// finals
-	protected final boolean TRACING = true; // do we want to see trace output?
+	protected final boolean TRACING = false; // do we want to see trace output?
 
 	// non-finals
 	protected Node tos; // the node on the top of the stack
